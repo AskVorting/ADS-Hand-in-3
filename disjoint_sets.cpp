@@ -1,8 +1,11 @@
 #include "disjoint_sets.h"
+#include <iostream>
+using namespace std;
 
 /**
  * Construct the disjoint sets object.
  * numElements is the initial number of disjoint sets.
+ * Node and next is used to enable the functionality of print function
  */
 DisjSets::DisjSets(int numElements):s(numElements) {
 	for (int i = 0; i < numElements; i++)
@@ -10,7 +13,6 @@ DisjSets::DisjSets(int numElements):s(numElements) {
 		s[i].next = i;
 		s[i].value = -1; 
 	}
-	
 }
 
 /**
@@ -20,28 +22,37 @@ DisjSets::DisjSets(int numElements):s(numElements) {
  * root1 is the root of set 1.
  * root2 is the root of set 2.
  */
-void DisjSets::unionSets(int root1, int root2) {
+void DisjSets::unionSets(int root1, int root2) 
+{
+	// Makes sure that the roots of two sets are used
+	root1 = DisjSets::find(root1);
+	root2 = DisjSets::find(root2);
+
 	if (s[root2].value < s[root1].value)	// root2 is deeper
 		s[root1].value = root2;		// Make root2 new root
-		s[root1].next = root2;
-	else {
+	else 
+	{
 		if (s[root1].value == s[root2].value)
 			--s[root1].value;			// Update height if same
 		s[root2].value = root1;		// Make root1 new root
-		s[root2].next = root1;
 	}
+	//This links the elements together in a circle
+	int temp = s[root1].next;
+	s[root1].next = s[root2].next;
+	s[root2].next = temp;
 }
+
 
 /**
  * Perform a find in O(log N).
  * Error checks omitted again for simplicity.
  * Return the set containing x.
  */
-int DisjSets::find(int x) const {
+int DisjSets::findNo(int x) const {
 	if (s[x].value < 0)
 		return x;
 	else
-		return find(s[x].value);
+		return findNo(s[x].value);
 }
 
 /**
@@ -58,7 +69,7 @@ int DisjSets::find(int x) {
 }
 
 //Iterative find function without path compression
-int DisjSets::iterativeFind(int x) const {
+int DisjSets::iterativeFindNo(int x) const {
 	while(s[x].value > -1){
 		x = s[x].value;
 	}
@@ -67,21 +78,47 @@ int DisjSets::iterativeFind(int x) const {
 
 //Iterative find function with path compression
 int DisjSets::iterativeFind(int x) {
-	while(s[x] > -1){
-		if(s[s[x]] > -1){
-		s[x] = s[s[x]];
-		}
-		x = s[x];
+	int temp = x;
+	while(s[x].value > -1){
+		x = s[x].value;
 	}
+	//Sets the value of the original x to be the root of the set
+	s[temp].value = x;
 	return x;	
 }
 
 //Print all members in same set as node x
-void DisjSets::print(Node x) {
-	Node temp = s[x];
-	while(s[temp].next != s[x]){
-		cout << s[temp]
+//Since the members are in a 'circle' it simply prints all elements until it reaches the starting point.
+void DisjSets::print(int x) {
+	int temp = x;
+	while(s[temp].next != x){
+		cout << s[temp].next << " ";
+		temp = s[temp].next;
 	}
+	std::cout << "(" << x << ")" << endl;
 }
 
+int main(){
+	DisjSets set(9);
+
+	set.unionSets(6,7);
+	set.unionSets(4,3);
+	set.unionSets(4,5);
+	set.unionSets(4,6);
+
+	int x = set.iterativeFind(7);
+
+	cout << x << "\n";
+
+	for (int i = 0; i < set.s.size(); i++)
+	{
+		cout << set.s[i].value << " ";
+	}
+
+	cout << endl;
+
+	set.print(4);
+	
+
+}
 

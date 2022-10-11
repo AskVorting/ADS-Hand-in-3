@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <ctime>
 #include "sort.h"
-#include <time.h>
 
 using namespace std;
 

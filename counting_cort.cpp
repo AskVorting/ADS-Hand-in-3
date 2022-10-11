@@ -1,5 +1,6 @@
 #include <vector>
 #include <iostream>
+
 using namespace std;
 
 //counting sort
@@ -8,12 +9,13 @@ class counting_sort
 {
     private:
     //vector to be sorted
-       vector<int> input;
-       vector<int> output;
+    
+    vector<int> input;
+    vector<int> output;   
+       
 
- 
     public:
-    //constructor
+        //constructor
         void initialize_random_vector(int size , int max)
         {
             srand(time(0));
@@ -21,10 +23,14 @@ class counting_sort
             {
                 input.push_back(rand() % max);
             }
+            for (int i = 0; i < max; i++)
+            {
+                output.push_back(0);
+            }
         }
 
         //sorts the vector
-        void countingSort()
+        int countingSort()
         {
             for (int i = 0; i < input.size(); i++)
             {
@@ -47,11 +53,21 @@ class counting_sort
                 }
                 cout << endl;
         }
+};
 
 
-} 
+//test the class
+int main()
+{
+    counting_sort a;
+    a.initialize_random_vector(100, 10);
+    a.countingSort();
+    a.print();
+    return 0;
+}
 
-        
 
 
-
+// Language: cpp
+// Path: counting_sort.cpp
+//  */

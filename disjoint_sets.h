@@ -25,15 +25,16 @@ class DisjSets {
   public:
 	DisjSets(int numElements);
 
-	int find(int x) const;
+	int findNo(int x) const;
 	int find(int x);
 	void unionSets(int root1, int root2);
-	int iterativeFind(int x) const;
+	int iterativeFindNo(int x) const;
 	int iterativeFind(int x);
 	void print(int x);
+	vector<Node> s;
 
   private:
-	vector<Node> s;
+
 };
 
 #endif

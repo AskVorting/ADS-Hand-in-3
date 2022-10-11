@@ -19,10 +19,11 @@ using namespace std;
  * Use union by rank and path compression.
  * Elements in the set are numbered starting at 0.
  */
+struct Node{int value, next;};
+
 class DisjSets {
   public:
 	DisjSets(int numElements);
-	vector<int> s;
 
 	int find(int x) const;
 	int find(int x);
@@ -32,7 +33,7 @@ class DisjSets {
 	void print(int x);
 
   private:
-	 
+	vector<Node> s;
 };
 
 #endif

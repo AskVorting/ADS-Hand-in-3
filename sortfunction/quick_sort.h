@@ -7,7 +7,7 @@
  * Order left, center, and right and hide the pivot.
  * Then compute partition, restore the pivot and return its position.
  */
-using namespace std;
+
 template <typename Comparable>
 int partition(vector<Comparable>& a, int left, int right) {
 	int center = (left + right) / 2;

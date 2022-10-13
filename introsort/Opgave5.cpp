@@ -25,6 +25,7 @@ class SortClass
 		//permute the vector	
 		void permute(vector<int>& a) 
 		{
+			srand (time(NULL));
 			for (int j = 1; j < a.size(); ++j) {
 				swap(a[j], a[rand() % j]);
 			}
@@ -51,31 +52,10 @@ class SortClass
 		}
 	
 
-		
-		
-		
-
 		//introsort
 		void introSort(vector<int>&a, int left, int right )
 		{	
-			cout<<"introSort"<<endl;
-
-			int n = right - left + 1;
-			cout<<"n: "<<n<<endl;
-			for(int i = n;  i >= 0 ; i--)
-			{
-				if(n <= 16)
-				{
-					cout<<"elements not sorted"<< n <<"insertion sort"<<endl;
-					insertionSort(a, left, right);
-					
-					
-				}
-				else
-				{
-					quickSort(a, left, right);
-				}
-			}
+			quickSort(a, left, right);
 		}
 };
 
@@ -88,11 +68,12 @@ int main()
 	cout<<"input vector after permutation"<<endl;
 	sort.print();
 
-	
-	sort.introSort(sort.input, 0, sort.input.size()-1);
+	sort.introSort(sort.input, 0, sort.input.size());
+	//insertionSort(sort.input, 0, sort.input.size());
+
 	sort.print();
 	sort.checkSort(sort.input);
-
+	
 	
 
 	return 0;

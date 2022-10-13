@@ -1,6 +1,6 @@
 #ifndef _QUICK_SORT_H_
 #define _QUICK_SORT_H_
-
+#include "insertion_sort.h"
 /**
  * Order left, center, and right and hide the pivot.
  * Then compute partition, restore the pivot and return its position.
@@ -40,16 +40,38 @@ int partition(vector<Comparable>& a, int left, int right) {
  * left is the left-most index of the subarray.
  * right is the right-most index of the subarray.
  */
+
+/*
 template <typename Comparable>
 void quickSort(vector<Comparable>& a, int left, int right) {
-	if (right - left > 1) {
+if(right-left<16)
+	insertionSort(a,left,right);
+else
+	{
+		if (right - left > 1) {
+			int i = partition(a, left, right);
+			quickSort(a, left, i - 1);	// Sort small elements
+			quickSort(a, i + 1, right);	// Sort large elements
+		} else {						// Do an insertion sort on the subarray
+			if (a[left] > a[right]) {
+				std::swap(a[left], a[right]);
+			}
+		}
+	}
+}
+*/
+
+template <typename Comparable>
+void quickSort(vector<Comparable>& a, int left, int right) {
+	if (right - left > 16) 
+	{
 		int i = partition(a, left, right);
 		quickSort(a, left, i - 1);	// Sort small elements
 		quickSort(a, i + 1, right);	// Sort large elements
-	} else {						// Do an insertion sort on the subarray
-		if (a[left] > a[right]) {
-			std::swap(a[left], a[right]);
-		}
+	} 
+	else if(right-left>1) 
+	{
+		insertionSort(a,left,right);
 	}
 }
 

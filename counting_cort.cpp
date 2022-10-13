@@ -28,7 +28,6 @@ class counting_sort
                 output.push_back(0);
             }
         }
-
         //sorts the vector
         int countingSort()
         {
@@ -37,7 +36,6 @@ class counting_sort
                 output[input[i]] = output[input[i]] + 1;
             }
         }
-
         //prints the vector
         void print()
         {

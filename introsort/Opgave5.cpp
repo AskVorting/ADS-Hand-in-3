@@ -50,32 +50,26 @@ class SortClass
 			cout << "Finished checksort \n" << endl;
 		}
 
-		template <typename Iterator, typename Comparator>
-		void insertionSort(vector<Comparator>& a, int begin, int end){
-			if (begin == end)
-				return;
 
-			for (Iterator j, p = begin + 1; p != end; ++p) {
-				auto tmp = std::move(*p);
-				for (j = p; j != begin && less(tmp, *(j - 1)); --j)
-					*j = std::move(*(j - 1));
-				*j = std::move(tmp);
-			}
-
-};
-
-			
+		
+		
+		
 
 		//introsort
 		void introSort(vector<int>&a, int left, int right )
-		{
+		{	
+			cout<<"introSort"<<endl;
+
 			int n = right - left + 1;
-			for(int i = n;  i == 0 ; i--)
+			cout<<"n: "<<n<<endl;
+			for(int i = n;  i >= 0 ; i--)
 			{
 				if(n <= 16)
 				{
 					cout<<"elements not sorted"<< n <<"insertion sort"<<endl;
 					insertionSort(a, left, right);
+					
+					
 				}
 				else
 				{
@@ -89,12 +83,12 @@ class SortClass
 int main()
 {
 	SortClass sort;
-	sort.initialize_random_vector(100);
+	sort.initialize_random_vector(20);
 	sort.permute(sort.input);
 	cout<<"input vector after permutation"<<endl;
 	sort.print();
 
-	cout<<"input vector after introsort"<<endl;
+	
 	sort.introSort(sort.input, 0, sort.input.size()-1);
 	sort.print();
 	sort.checkSort(sort.input);
